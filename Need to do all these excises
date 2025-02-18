@@ -1,0 +1,90 @@
+1. Automating System Backup
+Scenario: Writing scripts to perform scheduled backups of critical servers, databases, or configuration files. Reason: Backups are essential for disaster recovery, and shell scripts can automate the entire process (e.g., using rsync, tar, mysqldump).
+
+Example:
+bash
+Copy
+# Backup script for MySQL database
+mysqldump -u root -p password database_name > /backup/$(date +\%F)_backup.sql
+2. Monitoring System Health and Resources
+Scenario: Automating checks for CPU, memory, disk usage, and other system metrics. Reason: Shell scripts can be scheduled using cron jobs to generate health reports and send alerts if resource usage exceeds thresholds.
+
+Example:
+bash
+Copy
+# Disk usage monitoring
+df -h | grep -E '^/dev/' | awk '{print $5}' | sed 's/%//g' | while read output; do if [ $output -gt 90 ]; then echo "Disk space warning"; fi; done
+3. Automating Deployment
+Scenario: Writing deployment scripts to automate the release of code to staging/production environments. Reason: Automating deployments reduces human error and speeds up the process. It often involves pulling the latest code, setting environment variables, and restarting services.
+
+Example:
+bash
+Copy
+# Deploy script to pull the latest code and restart the service
+git pull origin main
+docker-compose down
+docker-compose up -d
+4. Log Rotation and Management
+Scenario: Creating scripts to rotate logs for long-running applications to prevent logs from consuming too much disk space. Reason: Managing logs efficiently ensures that they don’t fill up the disk. This includes compressing old logs, moving them to archive, and cleaning up old ones.
+
+Example:
+bash
+Copy
+# Log rotation
+find /var/log -name "*.log" -type f -mtime +7 -exec gzip {} \;
+5. Continuous Integration (CI) Pipeline Automation
+Scenario: Creating scripts that automate the build, test, and deployment process within a CI/CD pipeline. Reason: CI/CD pipelines are a critical part of DevOps, and shell scripts help in automating tasks like building artifacts, running tests, and deploying to environments.
+
+Example:
+bash
+Copy
+# Build and test script for a Node.js application
+npm install
+npm test
+6. Provisioning and Configuring Servers
+Scenario: Writing scripts to provision new servers, install necessary software, and configure services. Reason: Automation of server provisioning ensures consistency and reduces time spent on manual tasks.
+
+Example:
+bash
+Copy
+# Server provisioning script for installing NGINX
+apt-get update
+apt-get install nginx -y
+systemctl start nginx
+systemctl enable nginx
+7. Rolling Back Deployments
+Scenario: Creating scripts to rollback code or configuration changes in case of a failure during deployment. Reason: Rollback scripts are vital for quickly reverting to a stable state if something goes wrong during deployment.
+
+Example:
+bash
+Copy
+# Rollback script for Docker containers
+docker-compose down
+git checkout previous_commit_hash
+docker-compose up -d
+8. User Management and Permission Handling
+Scenario: Automating user creation, modification, or deletion and managing permissions on Linux systems. Reason: This helps in managing access control and user permissions efficiently, which is important for security and compliance.
+
+Example:
+bash
+Copy
+# User creation and permission script
+useradd -m newuser
+chown newuser:newuser /home/newuser
+chmod 700 /home/newuser
+9. Automating Security Patches and Updates
+Scenario: Writing scripts to automatically check for and apply security patches and updates. Reason: Automating patch management reduces the chances of vulnerabilities due to outdated software and helps in ensuring compliance with security standards.
+
+Example:
+bash
+Copy
+# Auto-update script
+apt-get update && apt-get upgrade -y
+10. Scheduled Task Automation (Cron Jobs)
+Scenario: Setting up recurring tasks such as cleanup scripts, sending notifications, or running diagnostics. Reason: Cron jobs are essential for automating tasks that need to be executed periodically without human intervention.
+
+Example:
+bash
+Copy
+# Cron job to clean old files every midnight
+0 0 * * * /home/user/scripts/cleanup.sh
